@@ -6,3 +6,4 @@
 20231218	20:00::08	58e2b225-3567-4c9e-bea0-25dd4c5ffc35	Error: Not allowed by CORS
 20231218	20:01::14	d93f75a3-37b4-4f6b-983b-f27fcf0ee3be	Error: Not allowed by CORS
 20231218	20:01::14	4f0cfb7a-4009-4f3f-87d3-3ac7ba33b174	Error: Not allowed by CORS
+20231219	22:44::04	00946969-b26e-43f5-84d2-0756167b9ac6	ReferenceError: path is not defined

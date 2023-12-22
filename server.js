@@ -42,20 +42,16 @@ app.use(express.urlencoded({extended:false})); //Applys to all routes
 app.use(express.json());
 
 //Serve static files
-app.use(express.static(path.join(__dirname,'/public')));
+app.use('/',express.static(path.join(__dirname,'/public')));
+app.use('/subdir', express.static(path.join(__dirname,'/public')));
 
+//Routes
+app.use('/subdir', require('./routes/subdir')); //This will route any request coming for the subdirectory to the router instead of the routes that we are providing below....This will match infront of these(routes which are below)
+app.use('/',require('./routes/root'));
+app.use('/employees',require(path.join(__dirname,'routes','api','employee')));
 
-app.get('^/$|/index(.html)?',(req,res)=>{      //Regex operator => |
-    res.sendFile(path.join(__dirname,'views','index.html'));
-})
-
-app.get('/new-page(.html)?',(req,res)=>{
-    res.sendFile(path.join(__dirname,'views','new-page.html'));
-})
-
-app.get('/old-page(.html)?',(req,res)=>{
-    res.redirect(301,'new-page.html');
-})
+/*
+Knowledge purpose
 
 app.get('/hello(.html)?',(req,res,next)=>{
     console.log('Attempting to enter into the hello.html file');
@@ -84,8 +80,9 @@ const three = (req,res)=>{
 
 app.get('/chain(.html)?',[one,two,three]);
 
+*/
 
-//app.use does not allow regex and it is likely to be used for middleware but app.all is used for routing this means it will apply to all http methods all at once ()(it also accept regex(OR operator))
+//app.use is likely to be used for middleware but app.all is used for routing this means it will apply to all http methods all at once ()(it also accept regex(OR operator))
 app.all('*',(req,res)=>{ // As we are pretty much end of the page anything that reach here should be responded with 404 status code 
     res.status(404);
     if(req.accepts('html')){
